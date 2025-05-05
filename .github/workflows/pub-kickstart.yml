@@ -1,0 +1,49 @@
+name: pub-kickstart
+on:
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+  workflow_dispatch: # manual publication
+
+jobs:
+  extract-readmes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get repo name 
+        id: repo 
+        run: echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_OUTPUT
+
+      - name: Extract README & download images 
+        run: | 
+        mkdir -p extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
+        cp README.md extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md
+
+      - name: Get ai-on-openshift 
+        run: |
+          git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
+   
+      - name: Copy files to target repo 
+        run: | 
+          mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
+          cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
+   
+
+
+      - name: Create Pull Request to main 
+        run: | 
+          cd ai-on-openshift/
+          git config user.name "GitHub Actions Bot" 
+          git config user.email "<>"
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          title: "Update kickstart READMEs from rh-ai-kickstart" 
+          body: "This PR contains updated README files extracted from all rh-ai-kickstart repositories" 
+          base: main
+          branch: update-rh-ai-kickstart-readmes
+          commit-message: "Update kickstart READMES"
+          reviewers: keklundrh
