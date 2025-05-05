@@ -8,6 +8,8 @@ on:
   workflow_dispatch: # manual publication
 
 jobs:
+  permissions: 
+    content: write
   extract-readmes:
     runs-on: ubuntu-latest
     steps:
