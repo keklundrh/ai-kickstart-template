@@ -30,16 +30,11 @@ jobs:
         run: | 
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
-   
-
-
+          
       - name: Create Pull Request to main 
-        run: | 
-          cd ai-on-openshift/
-          git config user.name "GitHub Actions Bot" 
-          git config user.email "<>"
         uses: peter-evans/create-pull-request@v7
         with:
+          path: ai-on-openshift
           token: ${{ secrets.GITHUB_TOKEN }} 
           title: "Update kickstart READMEs from rh-ai-kickstart" 
           body: "This PR contains updated README files extracted from all rh-ai-kickstart repositories" 
