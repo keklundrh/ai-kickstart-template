@@ -19,8 +19,6 @@ jobs:
         id: repo 
         run: 
           echo "REPO_NAME=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_OUTPUT
-          git config user.name "GitHub Actions Bot" 
-          git config user.email "<>"
 
       - name: Extract README & download images 
         run: | 
@@ -30,6 +28,8 @@ jobs:
       - name: Get ai-on-openshift 
         run: |
           git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
+          git config user.name "GitHub Actions Bot" 
+          git config user.email "<>"
    
       - name: Copy files to target repo 
         run: | 
