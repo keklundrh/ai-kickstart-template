@@ -46,7 +46,7 @@ jobs:
           git add .
           git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
           git push origin $branch
-
+          ls -lhrt 
           gh pr create \
             --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
             --body "This PR adds the README and associated images." \
