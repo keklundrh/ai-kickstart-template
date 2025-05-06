@@ -38,7 +38,7 @@ jobs:
 
       - name: Create PR in target repo
         run: |
-          cd target-repo
+          cd ai-on-openshift
           branch="kickstart-sync-${{ github.run_id }}"
           git config user.name "GitHub Actions Bot" 
           git config user.email "<>"
