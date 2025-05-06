@@ -27,7 +27,9 @@ jobs:
 
       - name: Get ai-on-openshift & copy files to target repo
         run: |
-          git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
+          git clone https://<USERNAME>:${{ secrets.TARGET_REPO_PAT }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
+
+          # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
   
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
@@ -40,7 +42,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           path: ai-on-openshift
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.TARGET_REPO_PAT }} # secrets.GITHUB_TOKEN
           title: "Update kickstart READMEs from rh-ai-kickstart" 
           body: "This PR contains updated README files extracted from all rh-ai-kickstart repositories" 
           base: main
