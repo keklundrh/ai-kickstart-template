@@ -25,16 +25,16 @@ jobs:
           mkdir -p extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp README.md extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md
 
-      - name: Get ai-on-openshift 
+      - name: Get ai-on-openshift & copy files to target repo
         run: |
           git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
-          git config user.name "GitHub Actions Bot" 
-          git config user.email "<>"
-   
-      - name: Copy files to target repo 
-        run: | 
+  
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
+
+          git config user.name "GitHub Actions Bot" 
+          git config user.email "<>"
+
           
       - name: Create Pull Request to main 
         uses: peter-evans/create-pull-request@v7
