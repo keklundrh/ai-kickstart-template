@@ -30,8 +30,8 @@ jobs:
           git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
 
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
-          # git config user.name "GitHub Actions Bot" 
-          # git config user.email "<>"
+          git config user.name "GitHub Actions Bot" 
+          git config user.email "<>"
           
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
@@ -46,6 +46,9 @@ jobs:
           git checkout -b $branch
           git add .
           git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
+
+          gh auth log --with-token << "$GH_PAT"
+          
           git push origin $branch
           ls -lhrt 
           gh pr create \
