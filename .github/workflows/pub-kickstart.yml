@@ -46,9 +46,8 @@ jobs:
           git checkout -b $branch
           git add .
           git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
-
-          gh auth log --with-token << "$GH_PAT"
-          
+          git config user.name "GitHub Actions Bot" 
+          git config user.email "<>"    
           git push origin $branch
           ls -lhrt 
           gh pr create \
