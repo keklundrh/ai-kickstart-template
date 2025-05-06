@@ -38,25 +38,25 @@ jobs:
 
 
 
-      - name: Create PR in target repo
-        run: |
-          cd ai-on-openshift
-          branch="kickstart-sync-${{ github.run_id }}"
-
-          git checkout -b $branch
-          git add .
-          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
-          git config user.name "GitHub Actions Bot" 
-          git config user.email "<>"    
-          git push origin $branch
-          ls -lhrt 
-          gh pr create \
-            --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
-            --body "This PR adds the README and associated images." \
-            --base main \
-            --head $branch
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+#      - name: Create PR in target repo
+#        run: |
+#          cd ai-on-openshift
+#          branch="kickstart-sync-${{ github.run_id }}"
+#
+#          git checkout -b $branch
+#          git add .
+#          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
+#          git config user.name "GitHub Actions Bot" 
+#          git config user.email "<>"    
+#          git push origin $branch
+#          ls -lhrt 
+#          gh pr create \
+#            --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
+#            --body "This PR adds the README and associated images." \
+#            --base main \
+#            --head $branch
+#        env:
+#          GH_TOKEN: ${{ secrets.GH_PAT }}
 
           
 #      - name: Create Pull Request to main 
