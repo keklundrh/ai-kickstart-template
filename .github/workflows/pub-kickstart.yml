@@ -30,6 +30,8 @@ jobs:
           git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
           echo ${{ secrets.GH_TOKEN }}
           echo "env: " $GH_TOKEN
+          echo "env2: " ${{ github.token }}
+          echo "PAT: " ${{ secrets.GH_PAT }}
           
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
           git config user.name "GitHub Actions Bot" 
