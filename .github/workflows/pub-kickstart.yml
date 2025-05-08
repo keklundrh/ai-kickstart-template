@@ -37,7 +37,7 @@ jobs:
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
         env:
-          GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }}
 
 
       - name: Create PR in target repo
@@ -65,7 +65,7 @@ jobs:
             --base main \
             --head $branch
         env:
-          GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }}
 
           
 #      - name: Create Pull Request to main 
