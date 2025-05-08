@@ -40,42 +40,38 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }}
 
 
-      - name: Create PR in target repo
-        run: |
-          cd ai-on-openshift
-          branch="kickstart-sync-${{ github.run_id }}"
+#      - name: Create PR in target repo
+#        run: |
+#          cd ai-on-openshift
+#          branch="kickstart-sync-${{ github.run_id }}"
+#
+#          
+#          git checkout -b $branch
+#          git add .
+#              
+#          git config --global user.name "github-actions[bot]"
+#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+#          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
+#
+#          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/keklundrh/ai-on-openshift.git
+#          git push origin $branch
+#          gh pr create \
+#            --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
+#            --body "This PR adds the README and associated images." \
+#            --base main \
+#            --head $branch
+#        env:
+#          GH_TOKEN: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }}
 
           
-          git checkout -b $branch
-          git add .
-          
-          
-          
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-  
-          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
-
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/keklundrh/ai-on-openshift.git
-          git push origin $branch
-          gh pr create \
-            --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
-            --body "This PR adds the README and associated images." \
-            --base main \
-            --head $branch
-        env:
-          GH_TOKEN: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }}
-
-          
-#      - name: Create Pull Request to main 
-#        uses: peter-evans/create-pull-request@v7
-#        with:
-#          path: ai-on-openshift
-#          token: ${{ secrets.TARGET_REPO_PAT }} # secrets.GITHUB_TOKEN
-#          title: "Update kickstart READMEs from rh-ai-kickstart" 
-#          body: "This PR contains updated README files extracted from all rh-ai-kickstart repositories" 
-#          base: main
-#          branch: update-rh-ai-kickstart-readmes
-#          commit-message: "Update kickstart READMES"
-#          reviewers: keklundrh
+      - name: Create Pull Request to main 
+        uses: peter-evans/create-pull-request@v7
+        with:
+          path: ai-on-openshift
+          token: ${{ secrets.GH_ACTION_PUB_AI_KICKSTART }} # secrets.GITHUB_TOKEN
+          title: "Update kickstart READMEs from rh-ai-kickstart" 
+          body: "This PR contains updated README files extracted from all rh-ai-kickstart repositories" 
+          base: main
+          branch: update-rh-ai-kickstart-readmes
+          commit-message: "Update kickstart READMES"
+          reviewers: keklundrh
