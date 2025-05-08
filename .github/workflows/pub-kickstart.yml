@@ -48,9 +48,11 @@ jobs:
           git checkout -b $branch
           git add .
           
-          git config --user.email keklundrh@redhat.com
-          git config --user.name keklundrh
-
+          
+          
+          git config --global user.email "keklundrh@redhat.com"
+          git config --global user.name "keklundrh"
+  
           git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
           
           git push origin $branch
