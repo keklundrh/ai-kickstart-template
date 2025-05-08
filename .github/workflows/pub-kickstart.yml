@@ -48,14 +48,17 @@ jobs:
           cd ai-on-openshift
           branch="kickstart-sync-${{ github.run_id }}"
 
-          git commit --amend --reset-author
           
           git checkout -b $branch
           git add .
-          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
           
           git config --global user.name "GitHub Actions Bot" 
           git config --global user.email "<>"    
+
+        
+
+          git commit --amend --reset-author -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
+          
           git push origin $branch
           ls -lhrt 
           gh pr create \
