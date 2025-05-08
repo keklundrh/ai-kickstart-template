@@ -29,14 +29,15 @@ jobs:
 
       - name: Get ai-on-openshift & copy files to target repo
         run: |
-          git clone https://keklundrh:${{ secrets.GITHUB_TOKEN }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
-          env
+          git clone https://keklundrh:${GH_TOKEN}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
+          
           
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
           
           mkdir -p ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/
           cp extracted/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md ai-on-openshift/docs/kickstart/${{ steps.repo.outputs.REPO_NAME }}/README.md 
-
+        env:
+          GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
 
 
       - name: Create PR in target repo
@@ -50,11 +51,13 @@ jobs:
           
           
           
-          git config --global user.email "keklundrh@redhat.com"
-          git config --global user.name "keklundrh"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
   
           git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
-          
+
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/keklundrh/ai-on-openshift.git
           git push origin $branch
           gh pr create \
             --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
@@ -62,7 +65,7 @@ jobs:
             --base main \
             --head $branch
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.CUSTOM_GH_TOKEN }}
 
           
 #      - name: Create Pull Request to main 
