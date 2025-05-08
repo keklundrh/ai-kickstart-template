@@ -29,7 +29,7 @@ jobs:
 
       - name: Get ai-on-openshift & copy files to target repo
         run: |
-          git clone https://keklundrh:${{ secrets.GITHUB_PAT }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
+          git clone https://keklundrh:${{ secrets.GITHUB_TOKEN }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
           env
           
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
@@ -62,7 +62,7 @@ jobs:
             --base main \
             --head $branch
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
           
 #      - name: Create Pull Request to main 
