@@ -29,7 +29,7 @@ jobs:
 
       - name: Get ai-on-openshift & copy files to target repo
         run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
+          git clone https://keklundrh:${{ secrets.GITHUB_PAT }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
           env
           
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
@@ -48,22 +48,18 @@ jobs:
           git checkout -b $branch
           git add .
           
-          git config --global user.name "GitHub Actions Bot" 
-          git config --global user.email "<>"    
+     
 
-        
-
-          git commit --amend --reset-author -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
+          git commit -m "Add README and images from ${{ steps.repo.outputs.REPO_NAME }}"
           
           git push origin $branch
-          ls -lhrt 
           gh pr create \
             --title "Add README from ${{ steps.repo.outputs.REPO_NAME }}" \
             --body "This PR adds the README and associated images." \
             --base main \
             --head $branch
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
 
           
 #      - name: Create Pull Request to main 
