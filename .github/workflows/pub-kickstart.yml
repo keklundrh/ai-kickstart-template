@@ -27,11 +27,12 @@ jobs:
 
       - name: Get ai-on-openshift & copy files to target repo
         run: |
-          git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
+          git clone https://x-access-token:${{ github.token }}@github.com/keklundrh/ai-on-openshift.git ai-on-openshift
           echo ${{ secrets.GH_TOKEN }}
           echo "env: " $GH_TOKEN
           echo "env2: " ${{ github.token }}
           echo "PAT: " ${{ secrets.GH_PAT }}
+          echo "env3: " $GITHUB_TOKEN
           
           # git clone https://github.com/keklundrh/ai-on-openshift ai-on-openshift
           git config user.name "GitHub Actions Bot" 
@@ -60,7 +61,7 @@ jobs:
             --base main \
             --head $branch
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
           
 #      - name: Create Pull Request to main 
